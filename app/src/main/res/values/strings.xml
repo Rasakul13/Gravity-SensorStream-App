@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Gravity</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">FruitGrind Sensor</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="start">Start streaming</string>
+    <string name="stop">Stop streaming</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="please_connect_wifi">Please connect to a WiFi to set target device</string>
+    <string name="please_select_device">Please select a target device for streaming</string>
+    <string name="scanning_devices">Scanning for devices…</string>
+    <string name="no_devices">No devices found"</string>
+    <string name="selected_device">Selected device: "</string>
+    <string name="streaming">Streaming to: "</string>
+
+    <string name="wifi_logo_desc">Wifi logo on purple circle</string>
+</resources>

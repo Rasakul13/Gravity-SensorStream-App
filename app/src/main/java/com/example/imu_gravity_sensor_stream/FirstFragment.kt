@@ -63,7 +63,7 @@ class FirstFragment : Fragment() {
         sharedViewModel.isStreaming.observe(viewLifecycleOwner) { streaming ->
             isStreaming = streaming == true // Update local `isStreaming`
             updateStreamingButtonAppearance()
-            updateStatus(true) //TODO
+            updateStatus(true)
         }
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
@@ -95,10 +95,10 @@ class FirstFragment : Fragment() {
     fun toggleStreaming() {
         if (isStreaming) {
             onStopStreaming()
-            sharedViewModel.isStreaming.postValue(false)    // TODO
+            sharedViewModel.isStreaming.postValue(false)
         } else {
             onStartStreaming()
-            sharedViewModel.isStreaming.postValue(true)     // TODO
+            sharedViewModel.isStreaming.postValue(true)
         }
 
         // Update the flag and button text
@@ -281,11 +281,6 @@ class FirstFragment : Fragment() {
         ).hostAddress
     }
 
-
-
-
-
-
     private fun onStartStreaming() {
         activity?.requestedOrientation = resources.configuration.orientation
 
@@ -310,59 +305,6 @@ class FirstFragment : Fragment() {
         requireContext().stopService(serviceIntent)
 
         isStreaming = false
-    }
-
-    //    private fun onStartStreaming() {
-//        // Lock the screen orientation
-//        activity?.requestedOrientation = resources.configuration.orientation
-//
-//        val selectedIp = selectedDevice?.second ?: return
-//        val port = 5555
-//
-//        // Launch a coroutine to continuously send data
-//        streamingJob = lifecycleScope.launch(Dispatchers.IO) {
-//            while (isStreaming) {
-//                sharedViewModel.gravityData.value?.let { values ->
-//                    //val message = "X: ${values[0]}; Y: ${values[1]}; Z: ${values[2]}"
-//                    val message = " 83, ${values[0]}, ${values[1]}, ${values[2]}"
-//                    sendUdpPacket(message, selectedIp, port)
-//                }
-//                delay(100) // Control the rate of sending packets (e.g., every 100 ms)
-//            }
-//        }
-//    }
-//
-//    private fun onStopStreaming() {
-//        // Unlock the screen orientation
-//        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-//
-//
-//        // Stop the streaming coroutine
-//        streamingJob?.cancel()
-//        streamingJob = null
-//
-//        // Close the UDP socket when streaming stops
-//        udpSocket?.close()
-//        udpSocket = null
-//    }
-
-    // Method to send a UDP packet
-    private fun sendUdpPacket(message: String, ipAddress: String, port: Int) {
-        try {
-            // Initialize socket if not already created
-            if (udpSocket == null || udpSocket!!.isClosed) {
-                udpSocket = DatagramSocket()
-            }
-
-            val buffer = message.toByteArray()
-            val packet = DatagramPacket(buffer, buffer.size, InetAddress.getByName(ipAddress), port)
-            udpSocket?.send(packet)
-            Log.d("UDP", "Sending packet to $ipAddress:$port with message: $message")
-
-        } catch (e: Exception) {
-            Log.e("UDP", "Error sending UDP packet: ${e.message}")
-            e.printStackTrace()
-        }
     }
 
 }

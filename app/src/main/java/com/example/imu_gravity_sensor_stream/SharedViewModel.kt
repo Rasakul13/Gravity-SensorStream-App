@@ -11,6 +11,8 @@ class SharedViewModel : ViewModel() {
 
     val isStreaming = MutableLiveData<Boolean>()
 
+    val portLiveData: MutableLiveData<Int> = MutableLiveData(5555)
+
     companion object {
         // Singleton for exposing LiveData to the Service
         private val _gravityData = MutableLiveData<FloatArray>()

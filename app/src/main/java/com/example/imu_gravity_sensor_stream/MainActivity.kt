@@ -1,5 +1,6 @@
 package com.example.imu_gravity_sensor_stream
 
+import android.app.AlertDialog
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,8 @@ import android.hardware.SensorManager
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -46,7 +49,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedViewModel = ViewModelProvider(this).get(SharedViewModel::class.java)
+        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -104,6 +107,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
+
     /**
      * sensor member implementations
      */
@@ -126,7 +130,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     // Method to update WiFi status
-    fun updateNetworkStatus() {
+    private fun updateNetworkStatus() {
         sharedViewModel.isWifiConnected.postValue(isWifiConnected())
     }
 
@@ -165,7 +169,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
      * functions for UI
      */
 
-    fun isDarkMode(): Boolean {
+    private fun isDarkMode(): Boolean {
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return currentNightMode == Configuration.UI_MODE_NIGHT_YES
     }
@@ -193,12 +197,51 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         return true
     }
 
+    /**
+     * functions for main menu
+     */
+
+    private fun showPortDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Set UDP Port")
+
+        // Create an EditText to input the port
+        val input = EditText(this)
+        input.hint = "Enter port number"
+        input.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+
+        // Add the input to a layout for better padding
+        val layout = LinearLayout(this)
+        layout.orientation = LinearLayout.VERTICAL
+        layout.setPadding(50, 40, 50, 10)
+        layout.addView(input)
+
+        builder.setView(layout)
+
+        // Set current port value (default 5555) if available
+        input.setText(sharedViewModel.portLiveData.value?.toString() ?: "5555")
+
+        builder.setPositiveButton("OK") { dialog, _ ->
+            val portValue = input.text.toString().toIntOrNull()
+            if (portValue != null) {
+                sharedViewModel.portLiveData.postValue(portValue)
+                Snackbar.make(binding.root, "Port set to $portValue", Snackbar.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(binding.root, "Invalid port value", Snackbar.LENGTH_SHORT).show()
+            }
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+
+        builder.show()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> {
+                showPortDialog()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

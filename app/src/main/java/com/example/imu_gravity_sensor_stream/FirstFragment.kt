@@ -10,8 +10,6 @@ import com.example.imu_gravity_sensor_stream.databinding.FragmentFirstBinding
 
 import android.app.AlertDialog
 
-import java.net.DatagramPacket
-import java.net.DatagramSocket
 import java.net.InetAddress
 import kotlinx.coroutines.*
 
@@ -20,7 +18,6 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.PorterDuff
 import android.net.wifi.WifiManager
-import android.util.Log
 import android.util.TypedValue
 import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
@@ -47,7 +44,6 @@ class FirstFragment : Fragment() {
     private var isStreaming = false
     private var selectedDevice: Pair<String, String>? = null // Holds selected device name and IP
     private var streamingJob: Job? = null
-    private var udpSocket: DatagramSocket? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +55,6 @@ class FirstFragment : Fragment() {
             updateStatus(isConnected)
         }
 
-        // TODO: test
         sharedViewModel.isStreaming.observe(viewLifecycleOwner) { streaming ->
             isStreaming = streaming == true // Update local `isStreaming`
             updateStreamingButtonAppearance()
@@ -285,7 +280,7 @@ class FirstFragment : Fragment() {
         activity?.requestedOrientation = resources.configuration.orientation
 
         val selectedIp = selectedDevice?.second ?: return
-        val port = 5555
+        val port = sharedViewModel.portLiveData.value ?: 5555
 
         // Start the foreground service
         val serviceIntent = Intent(requireContext(), UdpStreamingService::class.java).apply {

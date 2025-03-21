@@ -199,22 +199,21 @@ class FirstFragment : Fragment() {
         }
 
         val deviceNames = devices.map { it.first }.toTypedArray()
-        val selectedIndex = devices.indexOfFirst { it == selectedDevice }
+        var tempSelectedDevice: Pair<String, String>? = selectedDevice // Temporary variable
 
         AlertDialog.Builder(requireContext())
             .setTitle("Select Target Device")
-            .setSingleChoiceItems(deviceNames, selectedIndex) { _, which ->
-                // When a device is selected, update the selectedDevice variable
-                selectedDevice = devices[which]
+            .setSingleChoiceItems(deviceNames, devices.indexOf(selectedDevice)) { _, which ->
+                tempSelectedDevice = devices[which] // Update temp selection
             }
             .setPositiveButton("OK") { _, _ ->
-                // When OK is clicked, update the TextView and enable the streaming button
-                //binding.textview.text = "Selected device: ${selectedDevice?.first}"
+                // Apply the selection when OK is pressed
+                selectedDevice = tempSelectedDevice
                 binding.textview.text = getString(R.string.selected_device) + "${selectedDevice?.first}"
                 binding.streamingButton.isEnabled = true
             }
             .setNegativeButton("Cancel") { _, _ ->
-                // Reset the TextView to "Please select device" if the user cancels
+                // Reset the TextView and  keep previous selection unchanged
                 if (selectedDevice == null) {
                     binding.textview.text = getString(R.string.please_select_device)
                 }

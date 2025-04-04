@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Gravity</string>
+    <string name="app_name">Gravity SensorStream</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">FruitGrind Sensor</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label">Gravity SensorStream</string>
+    <string name="second_fragment_label">Gravity SensorStream</string>
     <string name="start">Start streaming</string>
     <string name="stop">Stop streaming</string>
     <string name="previous">Previous</string>

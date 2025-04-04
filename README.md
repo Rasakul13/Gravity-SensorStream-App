@@ -48,7 +48,7 @@ To connect the app with the game running on your PC/Mac:
 
 ## 💡 Related Repositories
 
-- 🎮 [Serious Game Unity Project](https://github.com/Rasakul13/FruitGrind) (the receiving application)
+- 🎮 [ToadallyBalanced Serious Game Unity Project](https://github.com/Rasakul13/FruitGrind)
 
 ---
 

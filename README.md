@@ -14,7 +14,7 @@ The app is used as an input method in a serious game designed to support physica
 
 ## 📦 Download
 
-👉 [Download Gravity SensorStream APK](https://github.com/Rasakul13/Gravity-App/releases/tag/v1.0.0)
+- [Download Gravity SensorStream APK](https://github.com/Rasakul13/Gravity-App/releases/tag/v1.0.0)
 
 Make sure to allow installation from unknown sources on your Android phone.
 
@@ -37,8 +37,8 @@ To connect the app with the game running on your PC/Mac:
 
 ## ⚙️ Troubleshooting & Advanced Settings
 
-- ✅ **No connection?** Make sure the Unity game has been allowed to access the network — a pop-up may appear the first time you start a level.
-- 🔀 **Custom UDP Port:** The default port is `5555`, but this can be changed in both:
+-  **No connection?** Make sure the Unity game has been allowed to access the network — a pop-up may appear the first time you start a level.
+-  **Custom UDP Port:** The default port is `5555`, but this can be changed in both:
   - Gravity App: **Settings Menu** (top right corner)
   - Unity Game: **Settings Menu**
   
@@ -48,7 +48,7 @@ To connect the app with the game running on your PC/Mac:
 
 ## 💡 Related Repositories
 
-- 🎮 [ToadallyBalanced Serious Game Unity Project](https://github.com/Rasakul13/FruitGrind)
+-  [ToadallyBalanced Serious Game Unity Project](https://github.com/Rasakul13/FruitGrind)
 
 ---
 

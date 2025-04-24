@@ -4,6 +4,9 @@ This Android application streams gravity sensor data from your android smartphon
 
 The applciation was developet in the scope of developing a Serious Game System including a Unity-based serious game running on a PC or Mac and a smartphone for caputring and streaming the gravity sensor data to the PC/Mac.
 
+This app supports devices running Android 7.0 (Nougat, API 24) and above.
+It is targeted and tested for Android 12 (API 32), and should also work on newer Android versions.
+
 ---
 
 ## 🎮 Use Case: Serious Game for Rehabilitation
